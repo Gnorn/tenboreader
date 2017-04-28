@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Points</title>
+<link href="Style.css" rel="stylesheet" type="text/css" />
+<script src="jquery.min.js"></script>
+<script src="NoSleep.js"></script>
+<script src="bigscreen.min.js"></script>
+
+<script type="text/javascript">
+
+
+var noSleep = new NoSleep();
+
+function enableNoSleep() {
+  noSleep.enable();
+  document.removeEventListener('touchstart', enableNoSleep, false);
+}
+
+
+
+// Enable wake lock.
+// (must be wrapped in a user input event handler e.g. a mouse or touch handler)
+//document.addEventListener('touchstart', enableNoSleep, false);
+
+
+// Fonction pour lire les points stockes dans un fichier CSV
+LectureCSV = function() {
+    $.ajax({
+        type: "GET",
+        url: "scores.csv",
+        dataType: "text",
+        success: function(data) {parseCSV(data);},
+        cache: false
+     });
+}
+
+// Fonction pour mettre en forme les donnees recuperees du CSV
+parseCSV = function(CSV) {
+
+	var Valeurs = CSV.split(',');
+
+	ScoreA = parseInt(Valeurs[1]);
+	ScoreB = parseInt(Valeurs[2]);
+	ScoreC = parseInt(Valeurs[3]);
+	ScoreD = parseInt(Valeurs[4]);
+}
+
+// Initialisation variables
+var ScoreA=30000;
+var ScoreB=30000;
+var ScoreC=30000;
+var ScoreD=30000;
+var Offset=0;
+
+// Fonction pour mettre en forme les nombres relatifs
+NombreRelatif = function(Nombre) {
+	if (Nombre > 0)
+	return "+" + Nombre;
+	if (Nombre == 0)
+	return "±" + Nombre;
+	if (Nombre < 0 )
+	return Nombre;
+}
+
+// Fonction pour gerer l'offset dans la vue individuelle
+SetOffset = function(NewOffset) {
+	Offset = Offset + NewOffset;
+	if (Offset== -1)
+	Offset = 3;
+	if (Offset== 4)
+	Offset = 0;
+	
+	MAJScore();
+}
+
+// Fonction pour afficher les scores comme un differentiel
+DiffScore = function() {
+	clearInterval(Timer);
+
+	if (ScoreA + ScoreB + ScoreC + ScoreD <= 100000)
+	Base = 25000;
+	else
+	Base = 30000;
+
+	document.getElementById("Score2A").innerHTML = NombreRelatif(ScoreA - Base);
+	document.getElementById("Score2B").innerHTML = NombreRelatif(ScoreB - Base);
+	document.getElementById("Score2C").innerHTML = NombreRelatif(ScoreC - Base);
+	document.getElementById("Score2D").innerHTML = NombreRelatif(ScoreD - Base);
+
+	if (Offset == 0) {
+	document.getElementById("Score1A").innerHTML = NombreRelatif(ScoreA - ScoreA);
+	document.getElementById("Score1B").innerHTML = NombreRelatif(ScoreA - ScoreB);
+	document.getElementById("Score1C").innerHTML = NombreRelatif(ScoreA - ScoreC);
+	document.getElementById("Score1D").innerHTML = NombreRelatif(ScoreA - ScoreD);
+	}
+
+	if (Offset == 1) {
+	document.getElementById("Score1A").innerHTML = NombreRelatif(ScoreD - ScoreD);
+	document.getElementById("Score1B").innerHTML = NombreRelatif(ScoreD - ScoreA);
+	document.getElementById("Score1C").innerHTML = NombreRelatif(ScoreD - ScoreB);
+	document.getElementById("Score1D").innerHTML = NombreRelatif(ScoreD - ScoreC);
+	}
+
+	if (Offset == 2) {
+	document.getElementById("Score1A").innerHTML = NombreRelatif(ScoreC - ScoreC);
+	document.getElementById("Score1B").innerHTML = NombreRelatif(ScoreC - ScoreD);
+	document.getElementById("Score1C").innerHTML = NombreRelatif(ScoreC - ScoreA);
+	document.getElementById("Score1D").innerHTML = NombreRelatif(ScoreC - ScoreB);
+	}
+
+	if (Offset == 3) {
+	document.getElementById("Score1A").innerHTML = NombreRelatif(ScoreB - ScoreB);
+	document.getElementById("Score1B").innerHTML = NombreRelatif(ScoreB - ScoreC);
+	document.getElementById("Score1C").innerHTML = NombreRelatif(ScoreB - ScoreD);
+	document.getElementById("Score1D").innerHTML = NombreRelatif(ScoreB - ScoreA);
+	}
+	setTimeout(function(){ Timer=setInterval(MAJScore,100); }, 3000);
+}
+
+// Fonction pour mettre a jour les scores
+MAJScore = function() {
+
+	LectureCSV();
+
+	document.getElementById("Total").innerHTML = ScoreA + ScoreB + ScoreC + ScoreD;
+
+
+	document.getElementById("Score2A").innerHTML = ScoreA;
+	document.getElementById("Score2B").innerHTML = ScoreB;
+	document.getElementById("Score2C").innerHTML = ScoreC;
+	document.getElementById("Score2D").innerHTML = ScoreD;
+
+	if (Offset == 0) {
+	document.getElementById("Score1A").innerHTML = ScoreA;
+	document.getElementById("Score1B").innerHTML = ScoreB;
+	document.getElementById("Score1C").innerHTML = ScoreC;
+	document.getElementById("Score1D").innerHTML = ScoreD;
+	}
+
+	if (Offset == 1) {
+	document.getElementById("Score1A").innerHTML = ScoreD;
+	document.getElementById("Score1B").innerHTML = ScoreA;
+	document.getElementById("Score1C").innerHTML = ScoreB;
+	document.getElementById("Score1D").innerHTML = ScoreC;
+	}
+
+	if (Offset == 2) {
+	document.getElementById("Score1A").innerHTML = ScoreC;
+	document.getElementById("Score1B").innerHTML = ScoreD;
+	document.getElementById("Score1C").innerHTML = ScoreA;
+	document.getElementById("Score1D").innerHTML = ScoreB;
+	}
+
+	if (Offset == 3) {
+	document.getElementById("Score1A").innerHTML = ScoreB;
+	document.getElementById("Score1B").innerHTML = ScoreC;
+	document.getElementById("Score1C").innerHTML = ScoreD;
+	document.getElementById("Score1D").innerHTML = ScoreA;
+	}
+}
+
+// La fonction pour mettre a jour les scores est lancee toutes les secondes
+var Timer=setInterval(MAJScore,1000);
+
+// Fonction pour changer de vue
+SwitchVue = function() {
+
+	$("#Vue1A").toggle();
+	$("#Vue1B").toggle();
+	$("#Vue1C").toggle();
+	$("#Vue1D").toggle();
+	$("#Vue2A").toggle();
+	$("#Vue2B").toggle();
+	$("#Vue2C").toggle();
+	$("#Vue2D").toggle();
+	$("#OffsetPlus").toggle();
+	$("#OffsetMoins").toggle();
+}
+
+// Fonction pour afficher le menu
+MenuOn = function() {
+	document.getElementById("Menu").style.display = "block";
+}
+
+// Fonction pour cacher le menu
+MenuOff = function() {
+	document.getElementById("Menu").style.display = "none";
+}
+
+// Fonction pour gerer la taille de la police en fonction de la taille de la fnetre
+fontsize = function () {
+	var fontSize = $(".LCD").height() * 0.20; // 10% of container width
+	if (fontSize>$(".LCD").width() * 0.1)
+	{
+	var fontSize = $(".LCD").width() * 0.1;
+	}
+
+	$(".LCD").css('font-size', fontSize);
+};
+
+// Fonction pour verifier que la fenetre est en mode paysage
+checksize = function () {
+	if ($(".LCD").height()>$(".LCD").width())
+	{
+	document.getElementById("erreur").style.display = "block";
+	document.getElementById("LCD").style.display = "none";
+	} else {
+	document.getElementById("erreur").style.display = "none";
+	document.getElementById("LCD").style.display = "block";
+	}
+}
+
+// Fonction pour eteindre
+
+Shutdown = function() {
+	if ( confirm("Voulez-vous eteindre le Tenbo Reader ?") ) {
+		$.ajax({
+			type: "GET",
+			url: "shutdown.php",
+			dataType: "text",
+			success: alert("Mise hors tension..."),
+			cache: false
+		});
+	}
+}
+
+$(window).resize(fontsize);
+$(document).ready(fontsize);
+$(window).resize(checksize);
+$(document).ready(checksize);
+</script>
+
+</head>
+<body>
+<div class="Total"><span>Total : </span><span id="Total"></span></div>
+
+<div id="LCD" class="LCD">
+
+<a href="javascript:void(0)" onclick="DiffScore();"><div class="ScoreBoxAalt" id="Vue2A"><span id="Score2A" class="Score"></span></div>
+<div class="ScoreBoxBalt" id="Vue2B"><span id="Score2B" class="Score"></span></div>
+<div class="ScoreBoxCalt" id="Vue2C"><span id="Score2C" class="Score"></span></div>
+<div class="ScoreBoxDalt" id="Vue2D"><span id="Score2D" class="Score"></span></div>
+
+<div class="ScoreBoxA" id="Vue1A" style="display:none"><span id="Score1A" class="Score"></span></div>
+<div class="ScoreBoxB" id="Vue1B" style="display:none"><span id="Score1B" class="Score"></span></div>
+<div class="ScoreBoxC" id="Vue1C" style="display:none"><span id="Score1C" class="Score"></span></div>
+<div class="ScoreBoxD" id="Vue1D" style="display:none""><span id="Score1D" class="Score"></span></div></a>
+<div class="OffsetMoins" id="OffsetMoins" style="display:none"><a href="javascript:void(0)" onclick="SetOffset(-1);"><</a></div>
+<div class="OffsetPlus" id="OffsetPlus" style="display:none"><a href="javascript:void(0)" onclick="SetOffset(+1);">></a></div>
+
+<div id="Menu" class="Menu" style="display:none">
+<p>LE MENU :</p>
+<p><a href="javascript:void(0)" onclick="Shutdown();">&Eacute;teindre</a><br />
+<a href="javascript:void(0)" onclick="MenuOff();">Fermer menu</a></p>
+</div>
+
+</div>
+<div id="erreur" class="LCD">
+<p>Veuillez passer votre navigateur en mode paysage (plus large que haut) !</p>
+</div>
+
+<div class="Reglages" id="Reglages"><p><a href="javascript:void(0)" onclick="SwitchVue();">Changer de vue</a> - <a href="javascript:void(0)" onclick="BigScreen.toggle();">Plein &eacute;cran</a> - <a href="javascript:void(0)" onclick="MenuOn();">Menu</a></p>
+</div>
+
+
+</body>
+</html>

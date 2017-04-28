@@ -1,0 +1,213 @@
+html {
+	height: 100%;
+}
+body {
+	color:black;
+	background-color: #BBBBBB;
+	height: 100%;
+}
+
+.Total {
+	position: relative;
+	margin-right: 10%;
+	margin-left:auto;
+	top: 2%;
+	width:20%;
+	background-color: white;
+	border: 2px solid #000;
+	border-radius: 20px;
+	text-align: center;
+}
+.OffsetMoins {
+	position: relative;
+	top:80%;
+	margin-left: 10%;
+	margin-right: auto;
+	width:10%;
+	border: 2px solid#000;
+	border-radius:20px;
+	text-align:center;
+	font-size: 40%;
+	background-color: #DDD;
+}
+.OffsetPlus {
+	position: relative;
+	top:70%;
+	margin-right: 10%;
+	margin-left: auto;
+	width:10%;
+	border: 2px solid#000;
+	border-radius:20px;
+	text-align:center;
+	font-size: 40%;
+	background-color: #DDD;
+}
+.LCD {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	top: 5%;
+	width: 80%;
+	height: 80%;
+	background-color: white;
+	text-align: center;
+	border: 2px solid #000;
+	border-radius: 20px;
+	font-family: Futura, PT Mono;
+}
+.ScoreBoxA {
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	top: 55%;
+	left: 26%;
+	width: 48%;
+	height: 36%;
+	background-color: #333;
+	border: 2px solid #000;
+	border-radius: 50%;
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 120%;
+}
+.ScoreBoxB {
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	top: 30%;
+	left: 60%;
+	width: 34%;
+	height: 25%;
+	background-color: #333;
+	border: 2px solid #000;
+	border-radius: 50%;
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 85%;
+}
+.ScoreBoxC {
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	top: 10%;
+	left: 33%;
+	width: 34%;
+	height: 25%;
+	background-color: #333;
+	border: 2px solid #000;
+	border-radius: 50%;
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 85%;
+}
+.ScoreBoxD {
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	top: 30%;
+	right: 60%;
+	width: 34%;
+	height: 25%;
+	background-color: #333;
+	border: 2px solid #000;
+	border-radius: 50%;
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 85%;
+}
+.ScoreBoxAalt {
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	top: 60%;
+	left: 30%;
+	width: 40%;
+	height: 30%;
+	background-color: #333;
+	border: 2px solid #000;
+	border-radius: 50%;
+	display: inline-block;
+	vertical-align: middle;
+}
+.ScoreBoxCalt {
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	top: 10%;
+	left: 30%;
+	width: 40%;
+	height: 30%;
+	background-color: #333;
+	border: 2px solid #000;
+	border-radius: 50%;
+	display: inline-block;
+	vertical-align: middle;
+	-ms-transform:rotate(180deg);
+	-webkit-transform:rotate(180deg);
+	transform:rotate(180deg);
+}
+.ScoreBoxBalt {
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	top: 35%;
+	left: 65%;
+	width: 40%;
+	height: 30%;
+	background-color: #333;
+	border: 2px solid #000;
+	border-radius: 50%;
+	display: inline-block;
+	vertical-align: middle;
+	-ms-transform:rotate(270deg);
+	-webkit-transform:rotate(270deg);
+	transform:rotate(270deg);
+}
+.ScoreBoxDalt {
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	top: 35%;
+	right: 65%;
+	width: 40%;
+	height: 30%;
+	background-color: #333;
+	border: 2px solid #000;
+	border-radius: 50%;
+	display: inline-block;
+	vertical-align: middle;
+	-ms-transform:rotate(90deg);
+	-webkit-transform:rotate(90deg);
+	transform:rotate(90deg);
+}
+.Score {
+	top: 10%;
+	position: relative;
+	color:red;
+	display: inline-block;
+}
+.Reglages {
+	position: relative;
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 30%;
+	background-color: white;
+	text-align: center;
+}
+
+.Menu {
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	top: 5%;
+	left: 5%;
+	width: 50%;
+	height: 50%;
+	background-color: white;
+	text-align: center;
+	border: 2px solid #000;
+	border-radius: 20px;
+	font-family: Futura, PT Mono;
+	font-size: 25%;
+}
