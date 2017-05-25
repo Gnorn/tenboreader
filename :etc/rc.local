@@ -18,9 +18,9 @@ if [ "$_IP" ]; then
 fi
 
 #Activer SSH si le fichier /etc/SSHFLAG existe
-if [ -e /etc/SSHFLAG ]; then
+if [ -e /boot/SSHFLAG ]; then
   /usr/sbin/update-rc.d -f ssh defaults
-  /bin/rm /etc/SSHFLAG
+  /bin/rm /boot/SSHFLAG
   /sbin/shutdown -r now
 fi
 

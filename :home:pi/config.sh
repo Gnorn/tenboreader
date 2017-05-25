@@ -1,13 +1,13 @@
 #!/bin/bash
 
-if [ -f /boot/TenboReader.cfg ]
-then
-	. /boot/TenboReader.cfg
-elif [ -f /media/usb0/TenboReader.cfg ]
+if [ -f /media/usb0/TenboReader.cfg ]
 then
         cp /media/usb0/TenboReader.cfg /boot/TenboReader.cfg
-	. /boot/TenboReader.cfg
+        . /boot/TenboReader.cfg
 	umount /media/usb0/
+elif [ -f /boot/TenboReader.cfg ]
+then
+        . /boot/TenboReader.cfg
 else
 	echo "No config file available, no settings changed."
 	exit 0
@@ -105,7 +105,6 @@ else
 	mv /home/pi/config/dhcpcd.conf /etc/dhcpcd.conf
 	tokenrestart="oui"
 fi
-
 
 if [ "$tokenrestart" == "oui" ]
 then
