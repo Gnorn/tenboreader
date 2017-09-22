@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo "UPDATE" > update.log
+cp VERSION /var/www/html/VERSION
