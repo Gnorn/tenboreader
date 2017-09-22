@@ -24,6 +24,11 @@ fi
 
 echo "Generating wpa_supplicant.conf"
 
+if [ "$WifiMode" == "AccessPoint" ]
+then
+	SSID=""
+fi
+
 if [ $(cat /etc/wpa_supplicant/wpa_supplicant.conf | grep -Pzoc 'ssid="'$SSID'"\n	psk="'$RSA'"') == 1 ]
 then
 	echo "SSID settings up to date."
