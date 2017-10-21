@@ -1,4 +1,5 @@
-FAIT LORS DE LA REMISE EN ROUTE :
+#!/bin/bash
+#FAIT LORS DE LA REMISE EN ROUTE :
 
 sudo apt-get -y update
 sudo apt-get -y dist-upgrade
