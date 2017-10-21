@@ -1,5 +1,12 @@
 #!/bin/bash
 
+#Activer SSH si le fichier /media/usb0/SSHFLAG existe
+if [ -e /media/usb0/SSHFLAG ]; then
+  /usr/sbin/update-rc.d -f ssh enable
+  /bin/rm /media/usb0/SSHFLAG
+  tokenrestart="oui"
+fi
+
 if [ -f /media/usb0/TenboReader.cfg ]
 then
         cp /media/usb0/TenboReader.cfg /boot/TenboReader.cfg

@@ -10,6 +10,14 @@
 
 <script type="text/javascript">
 
+// Fonction pour obtenir la version
+$.ajax({
+    type: "GET",
+    url: "VERSION",
+    dataType: "text",
+    success: function(data) {document.getElementById("Version").innerHTML = data},
+    cache: false
+});
 
 var noSleep = new NoSleep();
 
@@ -17,8 +25,6 @@ function enableNoSleep() {
   noSleep.enable();
   document.removeEventListener('touchstart', enableNoSleep, false);
 }
-
-
 
 // Enable wake lock.
 // (must be wrapped in a user input event handler e.g. a mouse or touch handler)
@@ -215,12 +221,12 @@ checksize = function () {
 // Fonction pour eteindre
 
 Shutdown = function() {
-	if ( confirm("Voulez-vous eteindre le Tenbo Reader ?") ) {
+	if ( confirm("Do you want to turn the TenboReader off?") ) {
 		$.ajax({
 			type: "GET",
 			url: "shutdown.php",
 			dataType: "text",
-			success: alert("Mise hors tension..."),
+			success: alert("Shutting down..."),
 			cache: false
 		});
 	}
@@ -251,19 +257,21 @@ $(document).ready(checksize);
 <div class="OffsetPlus" id="OffsetPlus" style="display:none"><a href="javascript:void(0)" onclick="SetOffset(+1);">></a></div>
 
 <div id="Menu" class="Menu" style="display:none">
-<p>LE MENU :</p>
-<p><a href="javascript:void(0)" onclick="Shutdown();">&Eacute;teindre</a><br />
-<a href="javascript:void(0)" onclick="MenuOff();">Fermer menu</a></p>
+<p>MENU:</p>
+<p><a href="javascript:void(0)" onclick="Shutdown();">Shutdown</a><br />
+<a href="javascript:void(0)" onclick="window.open('calibrate.php');">Calibrate TenboReader</a><br />
+<a href="javascript:void(0)" onclick="window.open('update.php');">Update TenboReader</a><br />
+<a href="javascript:void(0)" onclick="MenuOff();">Close Menu</a></p>
+<div id="Version"></div>
 </div>
 
 </div>
 <div id="erreur" class="LCD">
-<p>Veuillez passer votre navigateur en mode paysage (plus large que haut) !</p>
+<p>Turn your browser to Landscape Mode (width higher than height)!</p>
 </div>
 
-<div class="Reglages" id="Reglages"><p><a href="javascript:void(0)" onclick="SwitchVue();">Changer de vue</a> - <a href="javascript:void(0)" onclick="BigScreen.toggle();">Plein &eacute;cran</a> - <a href="javascript:void(0)" onclick="MenuOn();">Menu</a></p>
+<div class="Reglages" id="Reglages"><p><a href="javascript:void(0)" onclick="SwitchVue();"><span class="Bouton">Change view</span></a><!-- - <a href="javascript:void(0)" onclick="BigScreen.toggle();">Full Screen (doesnt work yet)</a> --><a href="javascript:void(0)" onclick="MenuOn();"><span class="Bouton">Menu</span></a></p>
 </div>
-
 
 </body>
 </html>

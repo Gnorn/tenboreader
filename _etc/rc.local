@@ -17,13 +17,6 @@ if [ "$_IP" ]; then
   printf "My IP address is %s\n" "$_IP"
 fi
 
-#Activer SSH si le fichier /etc/SSHFLAG existe
-if [ -e /boot/SSHFLAG ]; then
-  /usr/sbin/update-rc.d -f ssh defaults
-  /bin/rm /boot/SSHFLAG
-  /sbin/shutdown -r now
-fi
-
 #Mettre a jour la config
 /home/pi/config.sh
 
