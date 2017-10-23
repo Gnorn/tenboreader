@@ -36,7 +36,7 @@ rm spidev-3.2.tar.gz
 
 sudo cp _etc/rc.local /etc/rc.local
 sudo cp -r _home_pi/* /home/pi/
-sudp cp -r _var_www_html/* /var/www/html/
+sudo cp -r _var_www_html/* /var/www/html/
 sudo cp TenboReader.cfg /boot/TenboReader.cfg
 
 
