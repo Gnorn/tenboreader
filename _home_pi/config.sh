@@ -1,20 +1,32 @@
 #!/bin/bash
 
 #Activer SSH si le fichier /media/usb0/SSHFLAG existe
-if [ -e /media/usb0/SSHFLAG ]; then
-  /usr/sbin/update-rc.d -f ssh enable
-  /bin/rm /media/usb0/SSHFLAG
-  tokenrestart="oui"
-fi
+#if [ -e /media/usb0/SSHFLAG ]; then
+#  /usr/sbin/update-rc.d -f ssh enable
+#  /bin/rm /media/usb0/SSHFLAG
+#  tokenrestart="oui"
+#fi
 
-if [ -f /media/usb0/TenboReader.cfg ]
+for part in /dev/sda*; do
+  if [[ $part != "/dev/sda" && $part != "/dev/sda*" ]]
+  then
+    mkdir /media/usb
+    mount $part /media/usb
+
+    if [ -f /media/usb/TenboReader.cfg ]
+    then
+      cp /media/usb/TenboReader.cfg /home/pi/TenboReader.cfg
+    fi
+
+    umount $part
+    rmdir /media/usb
+
+  fi
+done
+
+if [ -f /home/pi/TenboReader.cfg ]
 then
-        cp /media/usb0/TenboReader.cfg /boot/TenboReader.cfg
-        . /boot/TenboReader.cfg
-	umount /media/usb0/
-elif [ -f /boot/TenboReader.cfg ]
-then
-        . /boot/TenboReader.cfg
+        . /home/pi/TenboReader.cfg
 else
 	echo "No config file available, no settings changed."
 	exit 0

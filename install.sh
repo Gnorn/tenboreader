@@ -5,6 +5,8 @@ sudo apt-get -y update
 sudo apt-get -y dist-upgrade
 #gardé dhcpcd.conf ma version
 #sudo shutdown -r now
+#sudo apt-get -y install usbmount
+sudo apt-get -y install dnsmasq hostapd
 sudo apt-get -y install apache2 apache2-doc avahi-daemon python-rpi.gpio
 sudo apt-get -y install php7.0 libapache2-mod-php7.0
 #decommenté dtparam=spi=on dans /boot/config.txt
@@ -37,7 +39,7 @@ rm spidev-3.2.tar.gz
 sudo cp _etc/rc.local /etc/rc.local
 sudo cp -r _home_pi/* /home/pi/
 sudo cp -r _var_www_html/* /var/www/html/
-sudo cp TenboReader.cfg /boot/TenboReader.cfg
+sudo cp TenboReader.cfg /home/pi/TenboReader.cfg
 
 
 #CREE IMAGE DISQUE TenboReader-restore1.img
@@ -53,6 +55,9 @@ echo "www-data ALL=(ALL) NOPASSWD: /home/pi/systemupdate/systemupdate.sh" | (sud
 
 ##FIN D'AJOUT A VISUDO
 
+sudo touch /etc/hostapd/hostapd.conf
+sudo sh -c "echo 'interface=wlan0      # Use the require wireless interface - usually wlan0' > /etc/dnsmasq.conf"
+sudo sh -c "echo '  dhcp-range=192.168.0.2,192.168.0.20,255.255.255.0,24h' >> /etc/dnsmasq.conf"
 
 sudo shutdown -r now
 

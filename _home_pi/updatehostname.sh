@@ -19,6 +19,4 @@ ff02::2         ip6-allrouters
 
 echo $newhostname > /etc/hostname
 
-/etc/init.d/hostname.sh
-
 reboot
