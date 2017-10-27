@@ -130,6 +130,21 @@ else
 	tokenrestart="oui"
 fi
 
+if [ "$SSH" == "enabled" ]
+then
+	echo "Checking if SSH is enabled..."
+	testssh=$(ps -e | grep sshd)
+
+	if [[ "$testssh" == "" ]]
+	then
+	        echo "SSH is not active, activating..."
+		sudo touch /boot/ssh
+		tokenrestart="oui"
+	else
+		echo "SSH already active, nothing to do..."
+	fi
+fi
+
 if [ "$tokenrestart" == "oui" ]
 then
 	echo "Rebooting..."
